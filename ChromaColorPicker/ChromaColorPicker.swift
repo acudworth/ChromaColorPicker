@@ -25,8 +25,8 @@
 import UIKit
 
 public protocol ChromaColorPickerDelegate {
-    /* Called when the user selects a new color */
-    func colorPickerDidChooseColor(_ colorPicker: ChromaColorPicker, color: UIColor)
+    func colorPickerDidScanToColor(_ colorPicker: ChromaColorPicker, color: UIColor)
+    func colorPickerDidCompleteMoveToColor(_ colorPicker: ChromaColorPicker, color: UIColor)
 }
 
 open class ChromaColorPicker: UIControl {
@@ -200,6 +200,7 @@ open class ChromaColorPicker: UIControl {
         if handleView.transform.d > 1 { //if scale is larger than 1 (already animated)
             self.executeHandleShrinkAnimation()
         }
+        self.delegate?.colorPickerDidCompleteMoveToColor(self, color: self.currentColor)
     }
     
   @objc func handleWasMoved(_ recognizer: UIPanGestureRecognizer) {
