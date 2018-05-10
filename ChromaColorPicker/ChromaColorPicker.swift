@@ -47,7 +47,7 @@ open class ChromaColorPicker: UIControl {
     
     open private(set) var currentColor = UIColor.red {
         didSet {
-            delegate?.colorPickerDidChooseColor(self, color: currentColor)
+            delegate?.colorPickerDidScanToColor(self, color: currentColor)
         }
     }
     open var supportsShadesOfGray: Bool = false {
