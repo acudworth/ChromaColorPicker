@@ -200,7 +200,6 @@ open class ChromaColorPicker: UIControl {
         if handleView.transform.d > 1 { //if scale is larger than 1 (already animated)
             self.executeHandleShrinkAnimation()
         }
-        self.delegate?.colorPickerDidCompleteMoveToColor(self, color: self.currentColor)
     }
     
   @objc func handleWasMoved(_ recognizer: UIPanGestureRecognizer) {
@@ -215,6 +214,7 @@ open class ChromaColorPicker: UIControl {
         case UIGestureRecognizerState.ended:
             /* Shrink Animation */
             self.executeHandleShrinkAnimation()
+            self.delegate?.colorPickerDidCompleteMoveToColor(self, color: self.currentColor)
             break
             
         default:
