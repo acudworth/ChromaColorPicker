@@ -25,7 +25,7 @@
 import UIKit
 
 public protocol ChromaColorPickerDelegate {
-    /* Called when the user taps the add button in the center */
+    /* Called when the user selects a new color */
     func colorPickerDidChooseColor(_ colorPicker: ChromaColorPicker, color: UIColor)
 }
 
@@ -45,7 +45,11 @@ open class ChromaColorPicker: UIControl {
         case grayscale
     }
     
-    open private(set) var currentColor = UIColor.red
+    open private(set) var currentColor = UIColor.red {
+        didSet {
+            delegate?.colorPickerDidChooseColor(self, color: currentColor)
+        }
+    }
     open var supportsShadesOfGray: Bool = false {
         didSet {
             if supportsShadesOfGray {
@@ -263,8 +267,7 @@ open class ChromaColorPicker: UIControl {
                         sender.transform = CGAffineTransform(scaleX: 1, y: 1)
                     })
                 })
-        
-        delegate?.colorPickerDidChooseColor(self, color: sender.color) //Delegate call
+    
     }
     
   @objc func sliderEditingDidEnd(_ sender: ChromaShadeSlider){
